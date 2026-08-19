@@ -796,41 +796,4 @@ python -m bankgpt replay --capability lookup-member-savings --param memberId=999
 
 HITL demo: a flag or a replay against a forced unknown dialog, then `operator resume`.
 
----
 
-## 16. Cuts (deliberate) and what we would build next
-
-**Cut (and why)**
-
-- Temporal / queues / multi-tenant DB — infra, not the scored core
-- Desktop adapter — design in §12, not enough time to make it real
-- Real operator console / co-browse — brief says mock the UI, make the lock real
-- Overlay merge engine and flakiness dashboards
-- LLM-assisted single-step fallback on replay failure (stretch)
-- Codegen of Playwright tests from artifacts (stretch)
-- Approval workflow `draft → approved` (stretch)
-- Semantic money-movement policy beyond risk class
-
-**Next, in order, if this were production**
-
-1. Session manager process (CDP reconnect, one browser per run)
-2. Temporal (or equivalent) **around** that manager for durable HITL waits and timeouts
-3. Tenant overlay files + telemetry on locator fallback rate
-4. Desktop adapter for one vendor thick-client
-5. Capability catalog HTTP API for the parent agent
-6. Screenshot DLP and evidence retention controls
-
----
-
-## 17. What “done” looks like for the take-home
-
-A reviewer can:
-
-1. Start Core Console from the README.
-2. Run discovery with their own model key and watch a **real** browser complete member lookup.
-3. Open `capabilities/lookup-member-savings.json` and understand inputs, steps, locators, outputs, outcomes.
-4. Replay with `12345` and get a balance; replay with `99999` and get `MEMBER_NOT_FOUND`, not a stack trace.
-5. See a run pause, take the same window, resume.
-6. Read `REPORT.md` and this document and know why Temporal is absent, why a11y locators, why a local app, and how this would extend to a second surface and a second tenant.
-
-That is the system being designed.

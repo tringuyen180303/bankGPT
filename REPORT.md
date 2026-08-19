@@ -44,3 +44,11 @@ The live session is the headed Playwright window—not a new login in Chrome/Saf
 ## 6. Safety
 
 `policy/core-console.yaml` allowlists localhost and a small action set. Denied: download, upload, eval. Read flows auto-replay; names like **Close account** never auto-execute. Login is env-only. Evidence goes through `redact_obj`: PAN/SSN-shaped strings, password/token assignments, demo member names. Member IDs remain parameters. Limits: pattern DLP, not a bank product; screenshots and `trace.zip` can still show the live page; a human in the headed window sees everything on screen.
+
+## 7. Cuts
+
+Discovery today uses **Ollama `llama3.2:latest`**. It can call tools, but it often mangles locators (`by` as an object, Post payment as a button). A hardcoded **coach** plus `hints/core-console.md` keep the demo finishing. Replay never uses the model.
+
+What I would build next, instead of growing that coach in Python: **per-screen markdown playbooks** (the same idea as the coach, but editable without a code change). Each file would be one Core Console screen — search, member detail, post payment — with exact control names and the one legal next act. Discovery would inject only the playbook for the current URL/heading. Operators at a new tenant would update markdown, not `_coach()`. A stronger tool-calling model would still be the default for first-time record; the playbooks are the cheap way to specialize.
+
+Also later, in order: a session manager so HITL survives process restart; sparse **tenant overlays** on `vendorApp`; HTTP `catalog`/`invoke`; `draft → approved` gated by `--times N`; a better compiler (parameterize `amount`, drop duplicate clicks); a desktop `snapshot`/`act`/`find` adapter; screenshot scrubbing. I would not add queues or codegen before those.
