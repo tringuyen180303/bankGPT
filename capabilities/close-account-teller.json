@@ -1,0 +1,52 @@
+{
+  "apiVersion": "bankgpt/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "close-account-teller",
+    "version": 1,
+    "vendorApp": "core-console",
+    "description": "Demo irreversible path: teller hits Close account and must escalate."
+  },
+  "spec": {
+    "parameters": [
+      { "name": "memberId", "type": "string", "required": true }
+    ],
+    "outputs": [],
+    "policy": { "risk": "irreversible" },
+    "entry_path": "/login",
+    "credentials_from_env": true,
+    "steps": [
+      {
+        "id": "fill_member_id",
+        "action": "fill",
+        "target": {
+          "locators": [
+            { "by": "label", "text": "Member ID" }
+          ]
+        },
+        "value": "{{params.memberId}}"
+      },
+      {
+        "id": "submit_search",
+        "action": "click",
+        "target": { "locators": [{ "by": "role", "role": "button", "name": "Search" }] }
+      },
+      {
+        "id": "close_account",
+        "action": "click",
+        "target": { "locators": [{ "by": "role", "role": "link", "name": "Close account" }] }
+      }
+    ],
+    "checkpoints": [],
+    "outcomes": [],
+    "recoverables": [
+      {
+        "id": "system_notice",
+        "detect": { "locators": [{ "by": "role", "role": "dialog", "name": "System notice" }] },
+        "action": "dismiss"
+      }
+    ],
+    "hardFailures": [],
+    "extract": []
+  }
+}

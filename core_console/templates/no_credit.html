@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Core Console — No credit{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>{{ title }}</h1>
+  <div class="body">
+    <p role="status">No credit product</p>
+    <p><a href="/member/{{ member_id }}">Back to member</a></p>
+  </div>
+</div>
+{% endblock %}

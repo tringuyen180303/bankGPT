@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Search frame</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; margin: 8px; }
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid #8a9aaa; padding: 6px; }
+  </style>
+</head>
+<body>
+  {% if error %}<p class="err" role="alert">{{ error }}</p>{% endif %}
+  <form method="get" action="/search-submit" target="_top">
+    <table>
+      <tr>
+        <th><label for="member_id">Member ID</label></th>
+        <td><input id="member_id" name="member_id" type="text" /></td>
+      </tr>
+    </table>
+    <p><button type="submit">Search</button></p>
+  </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Core Console — Open sub-account{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Open sub-account</h1>
+  <div class="body">
+    {% if error %}<p class="err" role="alert">{{ error }}</p>{% endif %}
+    {% if stage == "form" %}
+    <form method="post">
+      <table class="grid">
+        <tr>
+          <th><label for="product">Product type</label></th>
+          <td>
+            <select id="product" name="product">
+              <option value="SAVINGS">SAVINGS</option>
+              <option value="CHECKING">CHECKING</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="nickname">Nickname</label></th>
+          <td><input id="nickname" name="nickname" type="text" /></td>
+        </tr>
+      </table>
+      <p><button type="submit">Continue</button></p>
+    </form>
+    {% elif stage == "review" %}
+    <h2>Review and submit</h2>
+    <p>Product: {{ product }} / Nickname: {{ nickname }}</p>
+    <form method="post">
+      <input type="hidden" name="product" value="{{ product }}" />
+      <input type="hidden" name="nickname" value="{{ nickname }}" />
+      <input type="hidden" name="confirm" value="1" />
+      <button type="submit">Submit</button>
+    </form>
+    {% else %}
+    <p class="ok" role="status">Sub-account opened. Confirmation {{ confirmation }}</p>
+    <p><a href="/member/{{ member_id }}">Back to member</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

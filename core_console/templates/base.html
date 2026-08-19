@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Core Console{% endblock %}</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; background: #c9d3df; margin: 0; color: #111; }
+    .banner { background: #1a3a5c; color: #fff; padding: 8px 16px; font-size: 14px; }
+    .banner span { opacity: 0.7; font-size: 12px; }
+    .panel { background: #fff; margin: 16px; border: 2px solid #6a7a8a; }
+    .panel h1, .panel h2 { margin: 0; padding: 8px 12px; background: #dce6f0; font-size: 16px; border-bottom: 1px solid #6a7a8a; }
+    .body { padding: 12px; }
+    table.grid { border-collapse: collapse; width: 100%; }
+    table.grid td, table.grid th { border: 1px solid #8a9aaa; padding: 6px 8px; font-size: 13px; }
+    table.grid th { background: #eef2f6; text-align: left; }
+    input[type=text], input[type=password] { width: 220px; padding: 3px; }
+    button, input[type=submit] { padding: 4px 12px; }
+    .err { color: #8b0000; font-weight: bold; }
+    .ok { color: #064; }
+    dialog { border: 3px solid #1a3a5c; padding: 16px; }
+  </style>
+</head>
+<body>
+  <div class="banner">Core Console v1.0 — <span>legacy operator workstation (demo)</span></div>
+  {% block content %}{% endblock %}
+</body>
+</html>

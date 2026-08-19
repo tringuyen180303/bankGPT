@@ -1,0 +1,337 @@
+{
+  "apiVersion": "bankgpt/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "open-savings-sub-account",
+    "version": 1,
+    "vendorApp": "core-console",
+    "description": "Open a savings sub-account for member 12345 named Travel and tell me the confirmation.",
+    "recordedOn": {
+      "tenant": "demo",
+      "at": "2026-08-14T06:40:02.258155+00:00"
+    }
+  },
+  "spec": {
+    "parameters": [
+      {
+        "name": "memberId",
+        "type": "string",
+        "required": true,
+        "sensitive": false,
+        "description": "Member number on the search screen"
+      }
+    ],
+    "outputs": [],
+    "policy": {
+      "risk": "read",
+      "allowed_hosts": [
+        "localhost",
+        "127.0.0.1"
+      ],
+      "allowed_actions": [
+        "click",
+        "fill",
+        "select",
+        "press",
+        "dismiss",
+        "wait",
+        "extract",
+        "navigate"
+      ]
+    },
+    "entry_path": "/login",
+    "credentials_from_env": true,
+    "steps": [
+      {
+        "id": "fill_member_id",
+        "action": "fill",
+        "target": {
+          "locators": [
+            {
+              "by": "label",
+              "role": "textbox",
+              "name": "Member ID",
+              "text": "Member ID",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": "{{params.memberId}}",
+        "wait_ms": null
+      },
+      {
+        "id": "submit_search",
+        "action": "click",
+        "target": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Search",
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "label",
+              "role": null,
+              "name": null,
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": null,
+        "wait_ms": null
+      },
+      {
+        "id": "s2",
+        "action": "click",
+        "target": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "link",
+              "name": "Open sub-account",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "label",
+              "role": null,
+              "name": null,
+              "text": "Open sub-account",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Open sub-account",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": null,
+        "wait_ms": null
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "target": {
+          "locators": [
+            {
+              "by": "label",
+              "role": null,
+              "name": "Nickname",
+              "text": "Nickname",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": "Travel",
+        "wait_ms": null
+      },
+      {
+        "id": "s4",
+        "action": "click",
+        "target": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Continue",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "label",
+              "role": null,
+              "name": null,
+              "text": "Continue",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Continue",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": null,
+        "wait_ms": null
+      },
+      {
+        "id": "s5",
+        "action": "click",
+        "target": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Submit",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "label",
+              "role": null,
+              "name": null,
+              "text": "Submit",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Submit",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": null,
+        "wait_ms": null
+      }
+    ],
+    "checkpoints": [
+      {
+        "id": "on_member_detail",
+        "after": "submit_search",
+        "assert": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "heading",
+              "name": "Member detail",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        }
+      }
+    ],
+    "outcomes": [
+      {
+        "code": "MEMBER_NOT_FOUND",
+        "kind": "business_outcome",
+        "detect": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "status",
+              "name": "No record found",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ],
+          "busy": null,
+          "text": "No record found"
+        },
+        "after": "submit_search"
+      },
+      {
+        "code": "PERMISSION_DENIED",
+        "kind": "business_outcome",
+        "detect": {
+          "locators": null,
+          "busy": null,
+          "text": "You do not have access"
+        },
+        "after": null
+      }
+    ],
+    "recoverables": [
+      {
+        "id": "system_notice",
+        "detect": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "dialog",
+              "name": "System notice",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ],
+          "busy": null,
+          "text": null
+        },
+        "action": "dismiss",
+        "max_times": 2,
+        "timeout_ms": 15000
+      }
+    ],
+    "hardFailures": [
+      {
+        "code": "SESSION_EXPIRED",
+        "detect": {
+          "locators": null,
+          "busy": null,
+          "text": "Session expired"
+        },
+        "escalate": true
+      }
+    ],
+    "extract": [
+      {
+        "output": "savingsBalance",
+        "from": {
+          "locators": [
+            {
+              "by": "table_cell",
+              "role": null,
+              "name": null,
+              "text": null,
+              "column": "Savings balance",
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "transform": "money"
+      }
+    ]
+  }
+}

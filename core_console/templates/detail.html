@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Core Console — Member detail{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Member detail</h1>
+  <div class="body">
+    <table class="grid">
+      <tr><th>Name</th><td>{{ member.name }}</td></tr>
+      <tr><th>Status</th><td>{{ member.status }}</td></tr>
+      <tr><th>Account</th><td>{{ member.account_mask }}</td></tr>
+      <tr>
+        <th>Savings balance</th>
+        <td>${{ member.savings_balance }}</td>
+      </tr>
+      {% if member.has_credit %}
+      <tr><th>Credit limit</th><td>${{ member.credit_limit_display }}</td></tr>
+      <tr><th>Available credit</th><td>${{ member.available_credit_display }}</td></tr>
+      <tr><th>Loan balance</th><td>${{ member.loan_balance_display }}</td></tr>
+      {% else %}
+      <tr>
+        <th>Credit product</th>
+        <td><span role="status">No credit product</span></td>
+      </tr>
+      {% endif %}
+    </table>
+    <p>
+      <a href="/search">New search</a>
+      ·
+      <a href="/sub-account/{{ member_id }}">Open sub-account</a>
+      ·
+      <a href="/payment/{{ member_id }}">Post payment</a>
+      ·
+      <a href="/credit-draw/{{ member_id }}">Draw on line</a>
+      ·
+      <a href="/close/{{ member_id }}">Close account</a>
+    </p>
+  </div>
+</div>
+{% if notice %}
+<dialog id="notice" open role="dialog" aria-label="System notice">
+  <h2>System notice</h2>
+  <p>Scheduled maintenance window tonight. Click OK to continue.</p>
+  <form method="dialog"><button>OK</button></form>
+</dialog>
+{% endif %}
+{% endblock %}

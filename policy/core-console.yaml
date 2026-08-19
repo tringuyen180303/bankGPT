@@ -1,0 +1,25 @@
+id: core-console
+allowed_hosts:
+  - localhost
+  - 127.0.0.1
+allowed_url_patterns:
+  - "^https?://(localhost|127\\.0\\.0\\.1)(:\\d+)?/"
+allowed_actions:
+  - click
+  - fill
+  - select
+  - press
+  - dismiss
+  - wait
+  - extract
+  - navigate
+denied_actions:
+  - download
+  - upload
+  - evaluate
+irreversible_names:
+  - Close account
+  - Post transaction
+  - Wire
+max_steps: 25
+step_timeout_ms: 10000

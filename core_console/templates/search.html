@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Core Console — Search{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Member search</h1>
+  <div class="body">
+    <p>Look up a member record by ID. Nested workstation frame below.</p>
+    <iframe title="Search" src="/search-frame{% if timeout %}?timeout=1{% endif %}" width="640" height="180"></iframe>
+  </div>
+</div>
+{% endblock %}

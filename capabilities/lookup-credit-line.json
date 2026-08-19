@@ -1,0 +1,82 @@
+{
+  "apiVersion": "bankgpt/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "lookup-credit-line",
+    "version": 1,
+    "vendorApp": "core-console",
+    "description": "Look up a member and return credit limit, available credit, and loan balance."
+  },
+  "spec": {
+    "parameters": [
+      { "name": "memberId", "type": "string", "required": true }
+    ],
+    "outputs": [
+      { "name": "creditLimit", "type": "money" },
+      { "name": "availableCredit", "type": "money" },
+      { "name": "loanBalance", "type": "money" }
+    ],
+    "policy": { "risk": "read", "allowedHosts": ["127.0.0.1", "localhost"] },
+    "entry_path": "/login",
+    "credentials_from_env": true,
+    "steps": [
+      {
+        "id": "fill_member_id",
+        "action": "fill",
+        "target": { "locators": [{ "by": "label", "text": "Member ID" }] },
+        "value": "{{params.memberId}}"
+      },
+      {
+        "id": "submit_search",
+        "action": "click",
+        "target": { "locators": [{ "by": "role", "role": "button", "name": "Search" }] }
+      }
+    ],
+    "checkpoints": [
+      {
+        "id": "on_member_detail",
+        "after": "submit_search",
+        "assert": { "locators": [{ "by": "role", "role": "heading", "name": "Member detail" }] }
+      }
+    ],
+    "outcomes": [
+      {
+        "code": "MEMBER_NOT_FOUND",
+        "kind": "business_outcome",
+        "after": "submit_search",
+        "detect": { "text": "No record found" }
+      },
+      {
+        "code": "NO_CREDIT_PRODUCT",
+        "kind": "business_outcome",
+        "after": "submit_search",
+        "detect": { "text": "No credit product" }
+      }
+    ],
+    "recoverables": [
+      {
+        "id": "system_notice",
+        "detect": { "locators": [{ "by": "role", "role": "dialog", "name": "System notice" }] },
+        "action": "dismiss"
+      }
+    ],
+    "hardFailures": [],
+    "extract": [
+      {
+        "output": "creditLimit",
+        "from": { "locators": [{ "by": "table_cell", "column": "Credit limit" }] },
+        "transform": "money"
+      },
+      {
+        "output": "availableCredit",
+        "from": { "locators": [{ "by": "table_cell", "column": "Available credit" }] },
+        "transform": "money"
+      },
+      {
+        "output": "loanBalance",
+        "from": { "locators": [{ "by": "table_cell", "column": "Loan balance" }] },
+        "transform": "money"
+      }
+    ]
+  }
+}

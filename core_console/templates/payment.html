@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Core Console — Post payment{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Post payment</h1>
+  <div class="body">
+    {% if error %}<p class="err" role="alert">{{ error }}</p>{% endif %}
+    {% if stage == "form" %}
+    <form method="post">
+      <table class="grid">
+        <tr>
+          <th><label for="amount">Payment amount</label></th>
+          <td><input id="amount" name="amount" type="text" value="{{ amount or '' }}" /></td>
+        </tr>
+      </table>
+      <p><button type="submit">Continue</button></p>
+    </form>
+    {% elif stage == "review" %}
+    <h2>Review and submit</h2>
+    <p>Apply ${{ amount }} from savings to the loan.</p>
+    <form method="post">
+      <input type="hidden" name="amount" value="{{ amount }}" />
+      <input type="hidden" name="confirm" value="1" />
+      <button type="submit">Submit</button>
+    </form>
+    {% else %}
+    <p class="ok" role="status">Payment posted. Confirmation {{ confirmation }}</p>
+    <p>New savings balance ${{ savings }} / loan balance ${{ loan }}</p>
+    <p><a href="/member/{{ member_id }}">Back to member</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

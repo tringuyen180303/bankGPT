@@ -1,0 +1,222 @@
+{
+  "apiVersion": "bankgpt/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "lookup-not-found",
+    "version": 1,
+    "vendorApp": "core-console",
+    "description": "Look up member 99999 and read their savings balance",
+    "recordedOn": {
+      "tenant": "demo",
+      "at": "2026-08-19T00:43:51.810402+00:00"
+    }
+  },
+  "spec": {
+    "parameters": [
+      {
+        "name": "memberId",
+        "type": "string",
+        "required": true,
+        "sensitive": false,
+        "description": "Member number on the search screen"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "outcome",
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "policy": {
+      "risk": "read",
+      "allowed_hosts": [
+        "localhost",
+        "127.0.0.1"
+      ],
+      "allowed_actions": [
+        "click",
+        "fill",
+        "select",
+        "press",
+        "dismiss",
+        "wait",
+        "extract",
+        "navigate"
+      ]
+    },
+    "entry_path": "/login",
+    "credentials_from_env": true,
+    "steps": [
+      {
+        "id": "fill_member_id",
+        "action": "fill",
+        "target": {
+          "locators": [
+            {
+              "by": "label",
+              "role": "textbox",
+              "name": "Member ID",
+              "text": "Member ID",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": "{{params.memberId}}",
+        "wait_ms": null
+      },
+      {
+        "id": "submit_search",
+        "action": "click",
+        "target": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Search",
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "label",
+              "role": null,
+              "name": null,
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Search",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "value": null,
+        "wait_ms": null
+      }
+    ],
+    "checkpoints": [
+      {
+        "id": "on_member_detail",
+        "after": "submit_search",
+        "assert": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "heading",
+              "name": "Member detail",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        }
+      }
+    ],
+    "outcomes": [
+      {
+        "code": "MEMBER_NOT_FOUND",
+        "kind": "business_outcome",
+        "detect": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "status",
+              "name": "No record found",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ],
+          "busy": null,
+          "text": "No record found"
+        },
+        "after": "submit_search"
+      },
+      {
+        "code": "PERMISSION_DENIED",
+        "kind": "business_outcome",
+        "detect": {
+          "locators": null,
+          "busy": null,
+          "text": "You do not have access"
+        },
+        "after": null
+      }
+    ],
+    "recoverables": [
+      {
+        "id": "system_notice",
+        "detect": {
+          "locators": [
+            {
+              "by": "role",
+              "role": "dialog",
+              "name": "System notice",
+              "text": null,
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ],
+          "busy": null,
+          "text": null
+        },
+        "action": "dismiss",
+        "max_times": 2,
+        "timeout_ms": 15000
+      }
+    ],
+    "hardFailures": [
+      {
+        "code": "SESSION_EXPIRED",
+        "detect": {
+          "locators": null,
+          "busy": null,
+          "text": "Session expired"
+        },
+        "escalate": true
+      }
+    ],
+    "extract": [
+      {
+        "output": "outcome",
+        "from": {
+          "locators": [
+            {
+              "by": "table_cell",
+              "role": null,
+              "name": null,
+              "text": null,
+              "column": "Savings balance",
+              "index": null,
+              "exact": true
+            },
+            {
+              "by": "text",
+              "role": null,
+              "name": null,
+              "text": "Savings balance",
+              "column": null,
+              "index": null,
+              "exact": true
+            }
+          ]
+        },
+        "transform": null
+      }
+    ]
+  }
+}

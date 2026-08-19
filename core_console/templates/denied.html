@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Core Console — Denied{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Close account</h1>
+  <div class="body">
+    <p role="alert">You do not have access</p>
+    <p>Closing an account is irreversible and requires a supervisor.</p>
+    <p><a href="/member/{{ member_id }}">Back</a></p>
+  </div>
+</div>
+{% endblock %}

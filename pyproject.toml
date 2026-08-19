@@ -1,0 +1,41 @@
+[project]
+name = "bankgpt"
+version = "0.1.0"
+description = "Computer-use discovery + deterministic replay for legacy bank UIs"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.32.0",
+  "jinja2>=3.1.4",
+  "python-multipart>=0.0.12",
+  "playwright>=1.49.0",
+  "pydantic>=2.10.0",
+  "pydantic-settings>=2.6.0",
+  "pyyaml>=6.0.2",
+  "openai>=1.57.0",
+  "httpx>=0.28.0",
+  "itsdangerous>=2.2.0",
+  "pytest>=8.3.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[project.scripts]
+bankgpt = "bankgpt.cli:main"
+core-console = "core_console.app:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["bankgpt*", "core_console*"]
+
+[tool.setuptools.package-data]
+core_console = ["templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
