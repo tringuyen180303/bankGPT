@@ -1,0 +1,25 @@
+{
+  "actions": [
+    {
+      "ts": 1787091265139,
+      "actor": "human",
+      "action": "click",
+      "name": "OK",
+      "tag": "BUTTON"
+    },
+    {
+      "ts": 1787091321699,
+      "actor": "human",
+      "action": "click",
+      "name": "$5,000.00",
+      "tag": "TD"
+    },
+    {
+      "ts": 1787091324401,
+      "actor": "human",
+      "action": "click",
+      "name": "****4412",
+      "tag": "TD"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "actions": [
+    {
+      "ts": 1787092192229,
+      "actor": "human",
+      "action": "click",
+      "name": "OK",
+      "tag": "BUTTON"
+    },
+    {
+      "ts": 1787092193501,
+      "actor": "human",
+      "action": "click",
+      "name": "Alex Rivera",
+      "tag": "TD"
+    }
+  ]
+}

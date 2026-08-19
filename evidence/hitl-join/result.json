@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "capability": "close-account-teller",
+  "version": 1,
+  "outcome_code": null,
+  "outputs": {},
+  "error": "operator_abort",
+  "debug": {
+    "run_id": "hitl-join",
+    "failed_step": "close_account",
+    "expected": null,
+    "observed": "- text: Core Console v1.0 \u2014 legacy operator workstation (demo)\n- heading \"Member detail\" [level=1]\n- table:\n  - rowgroup:\n    - row \"Name Alex Rivera\":\n      - rowheader \"Name\"\n      - cell \"Alex Rivera\"\n    - row \"Status Active\":\n      - rowheader \"Status\"\n      - cell \"Active\"\n    - row \"Account ****4412\":\n      - rowheader \"Account\"\n      - cell \"****4412\"\n    - row \"Savings balance $690.50\":\n      - rowheader \"Savings balance\"\n      - cell \"$690.50\"\n    - row \"Credit limit $5,000.00\":\n      - rowheader \"Credit limit\"\n      - cell \"$5,000.00\"\n    - row \"Available credit $2,750.00\":\n      - rowheader \"Available credit\"\n      - cell \"$2,750.00\"\n    - row \"Loan balance $2,250.00\":\n      - rowheader \"Loan balance\"\n      - cell \"$2,250.00\"\n- paragraph:\n  - link \"New search\":\n    - /url: /search\n  - text: \u00b7\n  - link \"Open sub-account\":\n    - /url: /sub-account/12345\n  - text: \u00b7\n  - link \"Post payment\":\n    - /url: /payment/12345\n  - text: \u00b7\n  - link \"Draw on line\":\n    - /url: /credit-draw/12345\n  - text: \u00b7\n  - link \"Close account\":\n    - /url: /close/12345",
+    "evidence_dir": "/Users/tringuyen/Documents/bankGPT/evidence/hitl-join"
+  }
+}

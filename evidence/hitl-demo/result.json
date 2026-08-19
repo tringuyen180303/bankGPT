@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "capability": "close-account-teller",
+  "version": 1,
+  "outcome_code": null,
+  "outputs": {},
+  "error": null,
+  "debug": {
+    "run_id": "hitl-demo",
+    "failed_step": null,
+    "expected": null,
+    "observed": null,
+    "evidence_dir": "/Users/tringuyen/Documents/bankGPT/evidence/hitl-demo"
+  }
+}
